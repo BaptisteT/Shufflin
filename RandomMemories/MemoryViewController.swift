@@ -86,7 +86,7 @@ class MemoryViewController: UIViewController {
     }
     
     func changeRandomPhoto() {
-        self.titleView.hidden = true
+        self.titleView.alpha = 0
         self.dateButton.setTitle("",forState:UIControlState.Normal)
         self.cityButton.setTitle("",forState:UIControlState.Normal)
         UIView.animateWithDuration(0, animations: {
@@ -103,6 +103,7 @@ class MemoryViewController: UIViewController {
                                 self.cityButton.setTitle((place.addressDictionary["City"] as NSString) + " (" + place.country + ")",forState:UIControlState.Normal)
                                 self.cityButton.hidden = false
                                 self.titleView.hidden = false
+                                UIView.animateWithDuration(0.5, animations: {self.titleView.alpha = 1})
                             }
                         } else {
                             self.cityButton.hidden = true

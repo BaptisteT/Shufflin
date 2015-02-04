@@ -118,9 +118,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3C77C28D1A7A2EF000F77420 /* RandomMemories */ = {
+		3C77C28D1A7A2EF000F77420 /* Shufflin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "RandomMemories" */;
+			buildConfigurationList = 3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "Shufflin" */;
 			buildPhases = (
 				3C77C28A1A7A2EF000F77420 /* Sources */,
 				3C77C28B1A7A2EF000F77420 /* Frameworks */,
@@ -130,7 +130,7 @@
 			);
 			dependencies = (
 			);
-			name = RandomMemories;
+			name = Shufflin;
 			productName = RandomMemories;
 			productReference = 3C77C28E1A7A2EF000F77420 /* RandomMemories.app */;
 			productType = "com.apple.product-type.application";
@@ -162,7 +162,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3C77C28D1A7A2EF000F77420 /* RandomMemories */,
+				3C77C28D1A7A2EF000F77420 /* Shufflin */,
 			);
 		};
 /* End PBXProject section */
@@ -320,7 +320,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "RandomMemories" */ = {
+		3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "Shufflin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3C77C2B01A7A2EF000F77420 /* Debug */,
