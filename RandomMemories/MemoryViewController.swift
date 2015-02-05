@@ -16,24 +16,26 @@ class MemoryViewController: UIViewController {
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var blurView: UIImageView!
-    @IBOutlet weak var dateButton: UIButton!
-    @IBOutlet weak var cityButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
     var layer1 = CAShapeLayer()
     var layer2 = CAShapeLayer()
     var geoCoder = CLGeocoder()
+    var colorArray = NSArray()
+    var currentColor = UIColor.whiteColor()
     var lastDate: NSDate?
     var lastLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // labels
-        self.dateButton.hidden = true
-        self.cityButton.hidden = true
+        // color
+        colorArray = [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor()]
+        self.pickColorRandomly()
         
-        // tempo
-        self.dateButton.userInteractionEnabled = false
-        self.cityButton.userInteractionEnabled = false
+        // labels
+        self.cityLabel.hidden = true
+        self.dateLabel.hidden = true
         
         // image view
         self.imageView.userInteractionEnabled = true
@@ -41,7 +43,7 @@ class MemoryViewController: UIViewController {
         self.blurView.contentMode = UIViewContentMode.ScaleAspectFill
         
         // Tap gesture
-        let aSelector : Selector = "changeRandomPhoto"
+        let aSelector : Selector = "changePhotoAndColor"
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         self.imageView.addGestureRecognizer(tapGesture)
         self.blurView.alpha = 0
@@ -70,25 +72,26 @@ class MemoryViewController: UIViewController {
                         let metaData = alAssetRepresentation.metadata()
                         var date: NSDate? = result.valueForProperty(ALAssetPropertyDate) as? NSDate
                         var loc: CLLocation? = result.valueForProperty(ALAssetPropertyLocation) as? CLLocation
-                        
-                        if (date != nil && loc != nil) {
-                            
-                        }
                         var image = UIImage(CGImage: alAssetRepresentation.fullResolutionImage().takeUnretainedValue(), scale: 1, orientation: orientation!)
                         succeed(image,date,loc)
                     }
                 })
             }
-            }, failureBlock: {  (error: NSError!) in
-                println("1 Error!")
-                fail(error)
+        }, failureBlock: {  (error: NSError!) in
+            println("1 Error!")
+            fail(error)
         })
+    }
+    
+    func changePhotoAndColor() {
+        pickColorRandomly()
+        changeRandomPhoto()
     }
     
     func changeRandomPhoto() {
         self.titleView.alpha = 0
-        self.dateButton.setTitle("",forState:UIControlState.Normal)
-        self.cityButton.setTitle("",forState:UIControlState.Normal)
+        self.dateLabel.text = ""
+        self.cityLabel.text = ""
         UIView.animateWithDuration(0, animations: {
             self.blurView.alpha = 1
             }, completion: { (finished) in
@@ -99,25 +102,27 @@ class MemoryViewController: UIViewController {
                         self.lastLocation = loc
                         if (loc != nil) {
                             self.geoCoder.reverseGeocodeLocation(loc) { placemark,error in
-                                let place = placemark[0] as CLPlacemark
-                                self.cityButton.setTitle((place.addressDictionary["City"] as NSString) + " (" + place.country + ")",forState:UIControlState.Normal)
-                                self.cityButton.hidden = false
-                                self.titleView.hidden = false
-                                UIView.animateWithDuration(0.5, animations: {self.titleView.alpha = 1})
+                                if (placemark != nil) {
+                                    let place = placemark[0] as CLPlacemark
+                                    self.cityLabel.text = (place.addressDictionary["City"] as NSString) + " (" + place.country + ")"
+                                    self.cityLabel.hidden = false
+                                    self.titleView.hidden = false
+                                    UIView.animateWithDuration(0.5, animations: {self.titleView.alpha = 1})
+                                }
                             }
                         } else {
-                            self.cityButton.hidden = true
+                            self.cityLabel.hidden = true
                         }
                         if (date != nil) {
                             let dateFormatter = NSDateFormatter()
                             dateFormatter.dateFormat = "MMM yy"
-                            self.dateButton.setTitle(dateFormatter.stringFromDate(date!),forState:UIControlState.Normal)
-                            self.dateButton.hidden = false
+                            self.dateLabel.text = dateFormatter.stringFromDate(date!)
+                            self.dateLabel.hidden = false
                         } else {
-                            self.dateButton.hidden = true
+                            self.dateLabel.hidden = true
                         }
                         UIGraphicsBeginImageContext(self.view.bounds.size)
-                        self.imageView.image?.drawInRect(CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height))
+                        self.imageView.image!.drawInRect(CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height))
                         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
                         UIGraphicsEndImageContext()
                         self.blurView.image = screenshot.applyLightEffect()
@@ -129,15 +134,6 @@ class MemoryViewController: UIViewController {
 
         })
     }
-    
-    @IBAction func dateButtonClicked(sender: AnyObject) {
-        
-    }
-    
-    @IBAction func cityButtonClicked(sender: AnyObject) {
-        
-    }
-    
 
     override func prefersStatusBarHidden() -> Bool {
         return true;
@@ -151,7 +147,7 @@ class MemoryViewController: UIViewController {
         let leftTop = CGPointMake(0, 0);
         
         self.layer1.frame = self.view.frame
-        self.layer1.strokeColor = UIColor.whiteColor().CGColor;
+        self.layer1.strokeColor = self.currentColor.CGColor;
         self.layer1.lineWidth = 6;
         var path1 = UIBezierPath()
         path1.moveToPoint(middleTop)
@@ -163,7 +159,7 @@ class MemoryViewController: UIViewController {
         self.layer1.path = path1.CGPath;
         self.layer1.fillColor = UIColor.clearColor().CGColor
         
-        self.layer2.strokeColor = UIColor.whiteColor().CGColor
+        self.layer2.strokeColor = self.currentColor.CGColor
         self.layer2.lineWidth = 6;
         var path2 = UIBezierPath()
         path2.moveToPoint(middleTop)
@@ -187,5 +183,14 @@ class MemoryViewController: UIViewController {
         self.layer1.addAnimation(pathAnimation, forKey: "strokeEndAnimation")
         self.layer2.addAnimation(pathAnimation, forKey: "strokeEndAnimation")
         CATransaction.commit()
+    }
+    
+    func pickColorRandomly() -> () {
+        let randomIndex = Int(arc4random()) % self.colorArray.count
+        self.currentColor = self.colorArray[randomIndex] as UIColor
+        self.cityLabel.textColor = self.currentColor
+        self.dateLabel.textColor = self.currentColor
+        self.layer1.strokeColor = self.currentColor.CGColor
+        self.layer2.strokeColor = self.currentColor.CGColor
     }
 }

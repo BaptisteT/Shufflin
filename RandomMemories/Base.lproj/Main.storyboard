@@ -22,7 +22,7 @@
         <!--Memory View Controller-->
         <scene sceneID="plr-p7-OFe">
             <objects>
-                <viewController id="j7b-Jd-azA" customClass="MemoryViewController" customModule="RandomMemories" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="j7b-Jd-azA" customClass="MemoryViewController" customModule="Shufflin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xj6-eO-qtC"/>
                         <viewControllerLayoutGuide type="bottom" id="FOU-9P-kEw"/>
@@ -40,44 +40,36 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w09-uN-mY0">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                                <rect key="frame" x="0.0" y="520" width="600" height="80"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-YW-6I3">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCz-vm-gOq">
+                                        <rect key="frame" x="0.0" y="50" width="600" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="SLb-gq-mph"/>
+                                            <constraint firstAttribute="height" constant="20" id="BT8-os-jz3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="city_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="ynq-nW-ejH">
+                                        <rect key="frame" x="5" y="10" width="590" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="rBZ-Ym-lML"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="25"/>
-                                        <state key="normal" title="city_button">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cityButtonClicked:" destination="j7b-Jd-azA" eventType="touchUpInside" id="C2W-6e-rTY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keT-Ko-LWM">
-                                        <rect key="frame" x="0.0" y="60" width="600" height="20"/>
-                                        <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="15"/>
-                                        <state key="normal" title="date_button">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="dateButtonClicked:" destination="j7b-Jd-azA" eventType="touchUpInside" id="xHa-j4-v8h"/>
-                                        </connections>
-                                    </button>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="keT-Ko-LWM" firstAttribute="leading" secondItem="w09-uN-mY0" secondAttribute="leading" id="1NR-kz-g5q"/>
                                     <constraint firstAttribute="height" constant="80" id="3UV-Nk-JG7"/>
-                                    <constraint firstAttribute="trailing" secondItem="aUg-YW-6I3" secondAttribute="trailing" id="8vW-Nq-gk7"/>
-                                    <constraint firstAttribute="trailing" secondItem="keT-Ko-LWM" secondAttribute="trailing" id="Pc2-SJ-ylt"/>
-                                    <constraint firstItem="aUg-YW-6I3" firstAttribute="leading" secondItem="w09-uN-mY0" secondAttribute="leading" id="QY1-q6-mT7"/>
-                                    <constraint firstItem="aUg-YW-6I3" firstAttribute="top" secondItem="w09-uN-mY0" secondAttribute="top" id="gIB-yY-j7c"/>
-                                    <constraint firstAttribute="bottom" secondItem="keT-Ko-LWM" secondAttribute="bottom" id="ng0-bR-xed"/>
-                                    <constraint firstItem="keT-Ko-LWM" firstAttribute="top" secondItem="aUg-YW-6I3" secondAttribute="bottom" id="wep-LF-Z6V"/>
+                                    <constraint firstItem="ynq-nW-ejH" firstAttribute="leading" secondItem="w09-uN-mY0" secondAttribute="leading" constant="5" id="65K-8w-uDk"/>
+                                    <constraint firstAttribute="bottom" secondItem="RCz-vm-gOq" secondAttribute="bottom" constant="10" id="Gnx-t7-FhN"/>
+                                    <constraint firstAttribute="centerX" secondItem="RCz-vm-gOq" secondAttribute="centerX" id="W2B-5T-Obf"/>
+                                    <constraint firstAttribute="centerX" secondItem="ynq-nW-ejH" secondAttribute="centerX" id="eGw-uc-m34"/>
+                                    <constraint firstItem="RCz-vm-gOq" firstAttribute="leading" secondItem="w09-uN-mY0" secondAttribute="leading" id="iVf-V8-djY"/>
+                                    <constraint firstItem="ynq-nW-ejH" firstAttribute="top" secondItem="w09-uN-mY0" secondAttribute="top" constant="10" id="u0A-Z7-Ieo"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -92,15 +84,21 @@
                             <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="Dky-Ut-ZNG" secondAttribute="bottom" id="bF6-ds-84H"/>
                             <constraint firstItem="w09-uN-mY0" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="gaz-u3-htI"/>
                             <constraint firstItem="Dky-Ut-ZNG" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" id="lYI-3H-aA8"/>
+                            <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="w09-uN-mY0" secondAttribute="bottom" id="rcr-vP-u1N"/>
                             <constraint firstAttribute="trailing" secondItem="L39-Hx-cfK" secondAttribute="trailing" id="xgo-qN-uF7"/>
                             <constraint firstItem="L39-Hx-cfK" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="ytQ-Kg-uex"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gaz-u3-htI"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="6C7-wu-Fby"/>
                     <connections>
                         <outlet property="blurView" destination="L39-Hx-cfK" id="cD9-WV-eUr"/>
-                        <outlet property="cityButton" destination="aUg-YW-6I3" id="YTW-Wp-Pd5"/>
-                        <outlet property="dateButton" destination="keT-Ko-LWM" id="FkY-EW-emm"/>
+                        <outlet property="cityLabel" destination="ynq-nW-ejH" id="e9D-rg-KJR"/>
+                        <outlet property="dateLabel" destination="RCz-vm-gOq" id="G9H-tJ-0Eo"/>
                         <outlet property="imageView" destination="Dky-Ut-ZNG" id="UDr-1j-4eh"/>
                         <outlet property="titleView" destination="w09-uN-mY0" id="eOe-Vj-xVe"/>
                     </connections>
