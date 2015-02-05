@@ -30,7 +30,7 @@ class MemoryViewController: UIViewController {
         super.viewDidLoad()
         
         // color
-        colorArray = [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor()]
+        colorArray = [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor(),UIColor.yellowColor()]
         self.pickColorRandomly()
         
         // labels
@@ -51,6 +51,8 @@ class MemoryViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         self.animateWhiteBorder{
+            self.view.layer.borderWidth = 3
+            self.view.layer.borderColor = self.currentColor.CGColor
             self.changeRandomPhoto()
         }
     }
@@ -156,11 +158,11 @@ class MemoryViewController: UIViewController {
         path1.addLineToPoint(leftBottom)
         path1.addLineToPoint(leftTop)
         path1.closePath()
-        self.layer1.path = path1.CGPath;
+        self.layer1.path = path1.CGPath
         self.layer1.fillColor = UIColor.clearColor().CGColor
         
         self.layer2.strokeColor = self.currentColor.CGColor
-        self.layer2.lineWidth = 6;
+        self.layer2.lineWidth = 6
         var path2 = UIBezierPath()
         path2.moveToPoint(middleTop)
         path2.addLineToPoint(leftTop)
@@ -190,7 +192,11 @@ class MemoryViewController: UIViewController {
         self.currentColor = self.colorArray[randomIndex] as UIColor
         self.cityLabel.textColor = self.currentColor
         self.dateLabel.textColor = self.currentColor
-        self.layer1.strokeColor = self.currentColor.CGColor
-        self.layer2.strokeColor = self.currentColor.CGColor
+        self.view.layer.borderColor = self.currentColor.CGColor
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        self.layer1.removeFromSuperlayer()
+        self.layer2.removeFromSuperlayer()
     }
 }
