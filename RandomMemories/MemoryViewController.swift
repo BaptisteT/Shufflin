@@ -13,6 +13,7 @@ import CoreLocation
 class MemoryViewController: UIViewController {
 
     
+    @IBOutlet weak var authLabel: UILabel!
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var blurView: UIImageView!
@@ -25,17 +26,28 @@ class MemoryViewController: UIViewController {
     var currentColor = UIColor.whiteColor()
     var lastDate: NSDate?
     var lastLocation: CLLocation?
+    @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var tutoLabel: UILabel!
+    @IBOutlet weak var logoImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // color
-        colorArray = [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor(),UIColor.yellowColor()]
+        colorArray = [UIColor.whiteColor()]
+//        [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor(),UIColor.yellowColor()]
         self.pickColorRandomly()
         
         // labels
+        self.logoImageView.alpha = 0
         self.cityLabel.hidden = true
         self.dateLabel.hidden = true
+        self.authLabel.hidden = true
+        self.welcomeLabel.alpha = 0
+        self.tutoLabel.alpha = 0
+        self.welcomeLabel.text = "Welcome to your memories"
+        self.tutoLabel.text = "Tap to remember"
+        self.authLabel.text = "You need to allow " + ConstantUtils.appTitle() + " to access your photos"
         
         // image view
         self.imageView.userInteractionEnabled = true
@@ -53,7 +65,27 @@ class MemoryViewController: UIViewController {
         self.animateWhiteBorder{
             self.view.layer.borderWidth = 3
             self.view.layer.borderColor = self.currentColor.CGColor
-            self.changeRandomPhoto()
+            
+            if GeneralUtils.isFirstOpening() {
+                UIView.animateWithDuration(1, animations: {
+                    self.welcomeLabel.alpha = 1
+                    }, completion: { (completed) in
+                        UIView.animateWithDuration(1, animations: {
+                            self.logoImageView.alpha = 1
+                            }, completion: { (completed) in
+                                UIView.animateWithDuration(1, animations: {
+                                    self.tutoLabel.alpha = 1
+                                })
+                        })
+                })
+            } else {
+                UIView.animateWithDuration(1, animations: {
+                    self.logoImageView.alpha = 1
+                    }, completion: { (completed) in
+                        var timer: NSTimer?
+                        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("changePhotoAndColor"), userInfo: nil, repeats: false)
+                })
+            }
         }
     }
 
@@ -80,13 +112,20 @@ class MemoryViewController: UIViewController {
                 })
             }
         }, failureBlock: {  (error: NSError!) in
-            println("1 Error!")
+            if (self.authLabel.hidden) {
+                self.authLabel.hidden = false
+            } else {
+                GeneralUtils.openSettings()
+            }
             fail(error)
         })
     }
     
     func changePhotoAndColor() {
-        pickColorRandomly()
+//        pickColorRandomly()
+        self.tutoLabel.alpha = 0
+        self.welcomeLabel.alpha = 0
+        self.logoImageView.hidden = true
         changeRandomPhoto()
     }
     

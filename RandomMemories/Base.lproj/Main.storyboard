@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -22,7 +23,7 @@
         <!--Memory View Controller-->
         <scene sceneID="plr-p7-OFe">
             <objects>
-                <viewController id="j7b-Jd-azA" customClass="MemoryViewController" customModule="Shufflin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="j7b-Jd-azA" customClass="MemoryViewController" customModule="Shuffling" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xj6-eO-qtC"/>
                         <viewControllerLayoutGuide type="bottom" id="FOU-9P-kEw"/>
@@ -72,35 +73,100 @@
                                     <constraint firstItem="ynq-nW-ejH" firstAttribute="top" secondItem="w09-uN-mY0" secondAttribute="top" constant="10" id="u0A-Z7-Ieo"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="welcome_label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIK-Wq-UcI">
+                                <rect key="frame" x="20" y="100" width="560" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="nxW-Bs-GLB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="auth_label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yax-T3-xy3">
+                                <rect key="frame" x="20" y="250" width="560" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Mov-5v-A6A"/>
+                                    <constraint firstAttribute="height" constant="100" id="uEK-5d-Woc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tuto_label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLe-jo-SeL">
+                                <rect key="frame" x="20" y="400" width="560" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="CmN-NT-qgv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="qOY-9H-iT7">
+                                <rect key="frame" x="200" y="200" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="QFN-sW-YSJ"/>
+                                    <constraint firstAttribute="width" constant="200" id="YpH-gf-7Xl"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Dky-Ut-ZNG" secondAttribute="trailing" id="5Gh-pw-DBw"/>
+                            <constraint firstAttribute="centerX" secondItem="EIK-Wq-UcI" secondAttribute="centerX" id="86w-8Z-BUg"/>
+                            <constraint firstItem="MLe-jo-SeL" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" constant="20" id="8F1-0X-8BG"/>
+                            <constraint firstItem="EIK-Wq-UcI" firstAttribute="top" secondItem="Xj6-eO-qtC" secondAttribute="bottom" constant="150" id="93n-Ej-8V3"/>
                             <constraint firstAttribute="trailing" secondItem="w09-uN-mY0" secondAttribute="trailing" id="Bba-gU-dFu"/>
+                            <constraint firstItem="EIK-Wq-UcI" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" constant="20" id="EIb-TF-cbd"/>
                             <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="L39-Hx-cfK" secondAttribute="bottom" id="OJ6-Eu-IrP"/>
+                            <constraint firstAttribute="centerX" secondItem="Yax-T3-xy3" secondAttribute="centerX" id="ONw-5I-7z9"/>
+                            <constraint firstAttribute="centerY" secondItem="Yax-T3-xy3" secondAttribute="centerY" id="Qjl-Kn-0VD"/>
+                            <constraint firstItem="Yax-T3-xy3" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" constant="20" id="R7q-Et-j4R"/>
                             <constraint firstItem="Dky-Ut-ZNG" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="UQi-D2-TWm"/>
+                            <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="MLe-jo-SeL" secondAttribute="bottom" constant="200" id="WLe-iG-3qN"/>
                             <constraint firstItem="L39-Hx-cfK" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" id="WPm-do-Pfh"/>
                             <constraint firstItem="w09-uN-mY0" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" id="aMw-rg-Zfw"/>
                             <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="Dky-Ut-ZNG" secondAttribute="bottom" id="bF6-ds-84H"/>
+                            <constraint firstAttribute="centerY" secondItem="qOY-9H-iT7" secondAttribute="centerY" id="eTb-t1-ZRU"/>
                             <constraint firstItem="w09-uN-mY0" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="gaz-u3-htI"/>
+                            <constraint firstItem="EIK-Wq-UcI" firstAttribute="top" secondItem="Xj6-eO-qtC" secondAttribute="bottom" constant="100" id="iPA-3c-aOs"/>
+                            <constraint firstAttribute="centerX" secondItem="qOY-9H-iT7" secondAttribute="centerX" id="k0h-xv-Fkk"/>
                             <constraint firstItem="Dky-Ut-ZNG" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" id="lYI-3H-aA8"/>
+                            <constraint firstAttribute="centerX" secondItem="MLe-jo-SeL" secondAttribute="centerX" id="m4f-pb-h7p"/>
+                            <constraint firstItem="EIK-Wq-UcI" firstAttribute="top" secondItem="Xj6-eO-qtC" secondAttribute="bottom" constant="80" id="org-CE-Tco"/>
                             <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="w09-uN-mY0" secondAttribute="bottom" id="rcr-vP-u1N"/>
+                            <constraint firstItem="MLe-jo-SeL" firstAttribute="top" secondItem="qOY-9H-iT7" secondAttribute="bottom" id="u9a-Wa-vEg"/>
+                            <constraint firstItem="qOY-9H-iT7" firstAttribute="top" secondItem="EIK-Wq-UcI" secondAttribute="bottom" id="uv8-QQ-o2X"/>
+                            <constraint firstItem="MLe-jo-SeL" firstAttribute="top" secondItem="EIK-Wq-UcI" secondAttribute="bottom" constant="130" id="wh0-df-4pK"/>
                             <constraint firstAttribute="trailing" secondItem="L39-Hx-cfK" secondAttribute="trailing" id="xgo-qN-uF7"/>
                             <constraint firstItem="L39-Hx-cfK" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="ytQ-Kg-uex"/>
+                            <constraint firstAttribute="width" secondItem="MLe-jo-SeL" secondAttribute="height" multiplier="15:1" id="z0U-n0-ahL"/>
+                            <constraint firstItem="EIK-Wq-UcI" firstAttribute="top" secondItem="Xj6-eO-qtC" secondAttribute="bottom" constant="130" id="z8p-pw-66J"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="93n-Ej-8V3"/>
+                                <exclude reference="iPA-3c-aOs"/>
+                                <exclude reference="org-CE-Tco"/>
+                                <exclude reference="z8p-pw-66J"/>
+                                <exclude reference="wh0-df-4pK"/>
+                                <exclude reference="z0U-n0-ahL"/>
                                 <exclude reference="gaz-u3-htI"/>
+                                <exclude reference="WLe-iG-3qN"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="6C7-wu-Fby"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="authLabel" destination="Yax-T3-xy3" id="ov8-sM-JVP"/>
                         <outlet property="blurView" destination="L39-Hx-cfK" id="cD9-WV-eUr"/>
                         <outlet property="cityLabel" destination="ynq-nW-ejH" id="e9D-rg-KJR"/>
                         <outlet property="dateLabel" destination="RCz-vm-gOq" id="G9H-tJ-0Eo"/>
                         <outlet property="imageView" destination="Dky-Ut-ZNG" id="UDr-1j-4eh"/>
+                        <outlet property="logoImageView" destination="qOY-9H-iT7" id="G6z-GH-aA5"/>
                         <outlet property="titleView" destination="w09-uN-mY0" id="eOe-Vj-xVe"/>
+                        <outlet property="tutoLabel" destination="MLe-jo-SeL" id="kNc-FH-t1V"/>
+                        <outlet property="welcomeLabel" destination="EIK-Wq-UcI" id="fN0-dS-N17"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VWI-Gc-sCA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -108,4 +174,7 @@
             <point key="canvasLocation" x="520" y="64"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="150" height="150"/>
+    </resources>
 </document>

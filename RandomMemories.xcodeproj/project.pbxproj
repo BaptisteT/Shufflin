@@ -15,6 +15,7 @@
 		3CAA8A121A7B90CD0066408B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAA8A111A7B90CD0066408B /* AssetsLibrary.framework */; };
 		3CAA8A141A7B94190066408B /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAA8A131A7B94190066408B /* ImageUtils.swift */; };
 		3CAA8A1C1A7BB1000066408B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAA8A1B1A7BB1000066408B /* UIImage+ImageEffects.m */; };
+		3CE920A11A83859E000BD1F7 /* GeneralUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE920A01A83859E000BD1F7 /* GeneralUtils.swift */; };
 		3CFCC8DC1A8209B400449D2A /* ConstantUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFCC8DB1A8209B400449D2A /* ConstantUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		3CAA8A191A7BB0FF0066408B /* RandomMemories-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomMemories-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		3CAA8A1A1A7BB1000066408B /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		3CAA8A1B1A7BB1000066408B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		3CE920A01A83859E000BD1F7 /* GeneralUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralUtils.swift; sourceTree = "<group>"; };
 		3CFCC8DB1A8209B400449D2A /* ConstantUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 				3C77C2B51A7A2F8300F77420 /* MemoryViewController.swift */,
 				3CAA8A131A7B94190066408B /* ImageUtils.swift */,
 				3CFCC8DB1A8209B400449D2A /* ConstantUtils.swift */,
+				3CE920A01A83859E000BD1F7 /* GeneralUtils.swift */,
 			);
 			path = RandomMemories;
 			sourceTree = "<group>";
@@ -118,9 +121,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3C77C28D1A7A2EF000F77420 /* Shufflin */ = {
+		3C77C28D1A7A2EF000F77420 /* Shuffling */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "Shufflin" */;
+			buildConfigurationList = 3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "Shuffling" */;
 			buildPhases = (
 				3C77C28A1A7A2EF000F77420 /* Sources */,
 				3C77C28B1A7A2EF000F77420 /* Frameworks */,
@@ -130,7 +133,7 @@
 			);
 			dependencies = (
 			);
-			name = Shufflin;
+			name = Shuffling;
 			productName = RandomMemories;
 			productReference = 3C77C28E1A7A2EF000F77420 /* RandomMemories.app */;
 			productType = "com.apple.product-type.application";
@@ -162,7 +165,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3C77C28D1A7A2EF000F77420 /* Shufflin */,
+				3C77C28D1A7A2EF000F77420 /* Shuffling */,
 			);
 		};
 /* End PBXProject section */
@@ -184,6 +187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CE920A11A83859E000BD1F7 /* GeneralUtils.swift in Sources */,
 				3C77C2B61A7A2F8300F77420 /* MemoryViewController.swift in Sources */,
 				3CFCC8DC1A8209B400449D2A /* ConstantUtils.swift in Sources */,
 				3CAA8A1C1A7BB1000066408B /* UIImage+ImageEffects.m in Sources */,
@@ -320,7 +324,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "Shufflin" */ = {
+		3C77C2AF1A7A2EF000F77420 /* Build configuration list for PBXNativeTarget "Shuffling" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3C77C2B01A7A2EF000F77420 /* Debug */,
