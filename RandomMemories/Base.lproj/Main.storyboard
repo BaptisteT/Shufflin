@@ -74,7 +74,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="welcome_label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIK-Wq-UcI">
-                                <rect key="frame" x="20" y="100" width="560" height="100"/>
+                                <rect key="frame" x="20" y="50" width="560" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="nxW-Bs-GLB"/>
                                 </constraints>
@@ -93,7 +93,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tuto_label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLe-jo-SeL">
-                                <rect key="frame" x="20" y="400" width="560" height="100"/>
+                                <rect key="frame" x="20" y="450" width="560" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="CmN-NT-qgv"/>
                                 </constraints>
@@ -134,8 +134,8 @@
                             <constraint firstAttribute="centerX" secondItem="MLe-jo-SeL" secondAttribute="centerX" id="m4f-pb-h7p"/>
                             <constraint firstItem="EIK-Wq-UcI" firstAttribute="top" secondItem="Xj6-eO-qtC" secondAttribute="bottom" constant="80" id="org-CE-Tco"/>
                             <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="w09-uN-mY0" secondAttribute="bottom" id="rcr-vP-u1N"/>
-                            <constraint firstItem="MLe-jo-SeL" firstAttribute="top" secondItem="qOY-9H-iT7" secondAttribute="bottom" id="u9a-Wa-vEg"/>
-                            <constraint firstItem="qOY-9H-iT7" firstAttribute="top" secondItem="EIK-Wq-UcI" secondAttribute="bottom" id="uv8-QQ-o2X"/>
+                            <constraint firstItem="MLe-jo-SeL" firstAttribute="top" secondItem="qOY-9H-iT7" secondAttribute="bottom" constant="50" id="u9a-Wa-vEg"/>
+                            <constraint firstItem="qOY-9H-iT7" firstAttribute="top" secondItem="EIK-Wq-UcI" secondAttribute="bottom" constant="50" id="uv8-QQ-o2X"/>
                             <constraint firstItem="MLe-jo-SeL" firstAttribute="top" secondItem="EIK-Wq-UcI" secondAttribute="bottom" constant="130" id="wh0-df-4pK"/>
                             <constraint firstAttribute="trailing" secondItem="L39-Hx-cfK" secondAttribute="trailing" id="xgo-qN-uF7"/>
                             <constraint firstItem="L39-Hx-cfK" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="ytQ-Kg-uex"/>

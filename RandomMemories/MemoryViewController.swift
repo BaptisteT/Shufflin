@@ -46,7 +46,7 @@ class MemoryViewController: UIViewController {
         self.welcomeLabel.alpha = 0
         self.tutoLabel.alpha = 0
         self.welcomeLabel.text = "Welcome to your memories"
-        self.tutoLabel.text = "Tap to remember"
+        self.tutoLabel.text = "Tap the screen\nand start traveling"
         self.authLabel.text = "You need to allow " + ConstantUtils.appTitle() + " to access your photos"
         
         // image view
