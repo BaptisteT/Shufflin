@@ -156,7 +156,7 @@ class MemoryViewController: UIViewController {
                         }
                         if (date != nil) {
                             let dateFormatter = NSDateFormatter()
-                            dateFormatter.dateFormat = "MMM yy"
+                            dateFormatter.dateFormat = "dd MMM yy"
                             self.dateLabel.text = dateFormatter.stringFromDate(date!)
                             self.dateLabel.hidden = false
                         } else {
@@ -181,14 +181,14 @@ class MemoryViewController: UIViewController {
     }
     
     func animateWhiteBorder(completion: () -> ()) {
-        let middleTop = CGPointMake(self.view.frame.size.width / 2, 0);
-        let rightTop = CGPointMake(self.view.frame.size.width, 0);
-        let rightBottom = CGPointMake(self.view.frame.size.width, self.view.frame.size.height);
-        let leftBottom = CGPointMake(0, self.view.frame.size.height);
-        let leftTop = CGPointMake(0, 0);
+        let middleTop = CGPointMake(self.view.frame.size.width / 2, 0)
+        let rightTop = CGPointMake(self.view.frame.size.width, 0)
+        let rightBottom = CGPointMake(self.view.frame.size.width, self.view.frame.size.height)
+        let leftBottom = CGPointMake(0, self.view.frame.size.height)
+        let leftTop = CGPointMake(0, 0)
         
         self.layer1.frame = self.view.frame
-        self.layer1.strokeColor = self.currentColor.CGColor;
+        self.layer1.strokeColor = self.currentColor.CGColor
         self.layer1.lineWidth = 6;
         var path1 = UIBezierPath()
         path1.moveToPoint(middleTop)
