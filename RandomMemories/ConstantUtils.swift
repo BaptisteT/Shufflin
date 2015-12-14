@@ -10,7 +10,7 @@ import UIKit
 
 class ConstantUtils: NSObject {
    
-    class func appTitle() -> NSString {
+    class func appTitle() -> String {
         return "Shuffling"
     }
 }

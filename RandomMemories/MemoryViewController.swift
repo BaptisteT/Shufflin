@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 Bap. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import AssetsLibrary
+import Photos
 import CoreLocation
 
 class MemoryViewController: UIViewController {
@@ -16,7 +17,6 @@ class MemoryViewController: UIViewController {
     @IBOutlet weak var authLabel: UILabel!
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var blurView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     var layer1 = CAShapeLayer()
@@ -29,14 +29,17 @@ class MemoryViewController: UIViewController {
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var tutoLabel: UILabel!
     @IBOutlet weak var logoImageView: UIImageView!
+    var fetchResult : PHFetchResult!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // color
-        colorArray = [UIColor.whiteColor()]
-//        [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor(),UIColor.yellowColor()]
+        colorArray = [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor(),UIColor.yellowColor()]
         self.pickColorRandomly()
+        
+        // Fetch result
+        self.fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
         
         // labels
         self.logoImageView.alpha = 0
@@ -52,13 +55,10 @@ class MemoryViewController: UIViewController {
         // image view
         self.imageView.userInteractionEnabled = true
         self.imageView.contentMode = UIViewContentMode.ScaleAspectFill
-        self.blurView.contentMode = UIViewContentMode.ScaleAspectFill
         
         // Tap gesture
-        let aSelector : Selector = "changePhotoAndColor"
-        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("changePhotoAndColor"))
         self.imageView.addGestureRecognizer(tapGesture)
-        self.blurView.alpha = 0
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -82,47 +82,29 @@ class MemoryViewController: UIViewController {
                 UIView.animateWithDuration(1, animations: {
                     self.logoImageView.alpha = 1
                     }, completion: { (completed) in
-                        var timer: NSTimer?
-                        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("changePhotoAndColor"), userInfo: nil, repeats: false)
+                        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("changePhotoAndColor"), userInfo: nil, repeats: false)
                 })
             }
         }
     }
 
     
-    func pickRandomPhoto(success succeed: (UIImage?,NSDate?,CLLocation?) -> () = { image in }, failure fail : NSError -> () = {error in }) {
-        var assetLib:ALAssetsLibrary = ALAssetsLibrary()
+    func pickRandomPhoto(success: (UIImage?,NSDate?,CLLocation?) -> () = { image in }) {
+        let imgManager = PHImageManager.defaultManager()
+        let requestOptions = PHImageRequestOptions()
+        requestOptions.synchronous = false
         
-        assetLib.enumerateGroupsWithTypes(ALAssetsGroupType(ALAssetsGroupSavedPhotos), usingBlock: {
-            (group: ALAssetsGroup?, stop: UnsafeMutablePointer<ObjCBool>) in
-            if group != nil {
-                group!.setAssetsFilter(ALAssetsFilter.allPhotos())
-                let r = Int(arc4random_uniform(UInt32(group!.numberOfAssets())))
-                group!.enumerateAssetsAtIndexes(NSIndexSet(index: r), options: nil, usingBlock: {
-                    (result: ALAsset!, index: Int, stop: UnsafeMutablePointer<ObjCBool>) in
-                    if (result != nil) {
-                        let alAssetRepresentation = result.defaultRepresentation()
-                        let orientation = ImageUtils.convertToImageOrientation(alAssetRepresentation.orientation())
-                        let metaData = alAssetRepresentation.metadata()
-                        var date: NSDate? = result.valueForProperty(ALAssetPropertyDate) as? NSDate
-                        var loc: CLLocation? = result.valueForProperty(ALAssetPropertyLocation) as? CLLocation
-                        var image = UIImage(CGImage: alAssetRepresentation.fullResolutionImage().takeUnretainedValue(), scale: 1, orientation: orientation!)
-                        succeed(image,date,loc)
-                    }
+        if self.fetchResult.count > 0 {
+            let r = Int(arc4random_uniform(UInt32(self.fetchResult.count)))
+            let asset : PHAsset = fetchResult.objectAtIndex(r) as! PHAsset
+            imgManager.requestImageForAsset(asset, targetSize: self.view.frame.size, contentMode: PHImageContentMode.AspectFill, options: requestOptions, resultHandler: { (image, info) in
+                    success(image,asset.creationDate,asset.location)
                 })
-            }
-        }, failureBlock: {  (error: NSError!) in
-            if (self.authLabel.hidden) {
-                self.authLabel.hidden = false
-            } else {
-                GeneralUtils.openSettings()
-            }
-            fail(error)
-        })
+        }
     }
     
     func changePhotoAndColor() {
-//        pickColorRandomly()
+        pickColorRandomly()
         self.tutoLabel.alpha = 0
         self.welcomeLabel.alpha = 0
         self.logoImageView.hidden = true
@@ -133,46 +115,35 @@ class MemoryViewController: UIViewController {
         self.titleView.alpha = 0
         self.dateLabel.text = ""
         self.cityLabel.text = ""
-        UIView.animateWithDuration(0, animations: {
-            self.blurView.alpha = 1
-            }, completion: { (finished) in
-                self.pickRandomPhoto { image,date,loc in
-                    if (image != nil) {
-                        self.imageView.image = image
-                        self.lastDate = date
-                        self.lastLocation = loc
-                        if (loc != nil) {
-                            self.geoCoder.reverseGeocodeLocation(loc) { placemark,error in
-                                if (placemark != nil) {
-                                    let place = placemark[0] as CLPlacemark
-                                    self.cityLabel.text = (place.addressDictionary["City"] as NSString) + " (" + place.country + ")"
-                                    self.cityLabel.hidden = false
-                                    self.titleView.hidden = false
-                                    UIView.animateWithDuration(0.5, animations: {self.titleView.alpha = 1})
-                                }
-                            }
-                        } else {
-                            self.cityLabel.hidden = true
+        self.pickRandomPhoto ({ image,date,loc in
+            if (image != nil) {
+                self.imageView.image = image
+                self.lastDate = date
+                self.lastLocation = loc
+                if (loc != nil) {
+                    self.geoCoder.reverseGeocodeLocation(loc!) { placemark,error in
+                        if (placemark != nil) {
+                            let place = placemark![0] as CLPlacemark
+                            let country = (place.country != nil) ? place.country! : ""
+                            let city = (place.addressDictionary?["City"] != nil) ? place.addressDictionary!["City"] as! String : ""
+                            self.cityLabel.text = city + " (" + country + ")"
+                            self.cityLabel.hidden = false
+                            self.titleView.hidden = false
+                            UIView.animateWithDuration(0.5, animations: {self.titleView.alpha = 1})
                         }
-                        if (date != nil) {
-                            let dateFormatter = NSDateFormatter()
-                            dateFormatter.dateFormat = "dd MMM yy"
-                            self.dateLabel.text = dateFormatter.stringFromDate(date!)
-                            self.dateLabel.hidden = false
-                        } else {
-                            self.dateLabel.hidden = true
-                        }
-                        UIGraphicsBeginImageContext(self.view.bounds.size)
-                        self.imageView.image!.drawInRect(CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height))
-                        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-                        UIGraphicsEndImageContext()
-                        self.blurView.image = screenshot.applyLightEffect()
-                        UIView.animateWithDuration(0, animations: {
-                            self.blurView.alpha = 0
-                        })
                     }
+                } else {
+                    self.cityLabel.hidden = true
                 }
-
+                if (date != nil) {
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "dd MMM yy"
+                    self.dateLabel.text = dateFormatter.stringFromDate(date!)
+                    self.dateLabel.hidden = false
+                } else {
+                    self.dateLabel.hidden = true
+                }
+            }
         })
     }
 
@@ -190,7 +161,7 @@ class MemoryViewController: UIViewController {
         self.layer1.frame = self.view.frame
         self.layer1.strokeColor = self.currentColor.CGColor
         self.layer1.lineWidth = 6;
-        var path1 = UIBezierPath()
+        let path1 = UIBezierPath()
         path1.moveToPoint(middleTop)
         path1.addLineToPoint(rightTop)
         path1.addLineToPoint(rightBottom)
@@ -202,7 +173,7 @@ class MemoryViewController: UIViewController {
         
         self.layer2.strokeColor = self.currentColor.CGColor
         self.layer2.lineWidth = 6
-        var path2 = UIBezierPath()
+        let path2 = UIBezierPath()
         path2.moveToPoint(middleTop)
         path2.addLineToPoint(leftTop)
         path2.addLineToPoint(leftBottom)
@@ -216,7 +187,7 @@ class MemoryViewController: UIViewController {
         self.view.layer.addSublayer(self.layer2)
         
         CATransaction.begin()
-        var pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimation.duration = 2
         pathAnimation.fromValue = 0
         pathAnimation.toValue = 0.5
@@ -228,7 +199,7 @@ class MemoryViewController: UIViewController {
     
     func pickColorRandomly() -> () {
         let randomIndex = Int(arc4random()) % self.colorArray.count
-        self.currentColor = self.colorArray[randomIndex] as UIColor
+        self.currentColor = self.colorArray[randomIndex] as! UIColor
         self.cityLabel.textColor = self.currentColor
         self.dateLabel.textColor = self.currentColor
         self.view.layer.borderColor = self.currentColor.CGColor

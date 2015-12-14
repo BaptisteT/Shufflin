@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -33,10 +34,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dky-Ut-ZNG">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L39-Hx-cfK">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -117,13 +114,11 @@
                             <constraint firstItem="EIK-Wq-UcI" firstAttribute="top" secondItem="Xj6-eO-qtC" secondAttribute="bottom" constant="150" id="93n-Ej-8V3"/>
                             <constraint firstAttribute="trailing" secondItem="w09-uN-mY0" secondAttribute="trailing" id="Bba-gU-dFu"/>
                             <constraint firstItem="EIK-Wq-UcI" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" constant="20" id="EIb-TF-cbd"/>
-                            <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="L39-Hx-cfK" secondAttribute="bottom" id="OJ6-Eu-IrP"/>
                             <constraint firstAttribute="centerX" secondItem="Yax-T3-xy3" secondAttribute="centerX" id="ONw-5I-7z9"/>
                             <constraint firstAttribute="centerY" secondItem="Yax-T3-xy3" secondAttribute="centerY" id="Qjl-Kn-0VD"/>
                             <constraint firstItem="Yax-T3-xy3" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" constant="20" id="R7q-Et-j4R"/>
                             <constraint firstItem="Dky-Ut-ZNG" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="UQi-D2-TWm"/>
                             <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="MLe-jo-SeL" secondAttribute="bottom" constant="200" id="WLe-iG-3qN"/>
-                            <constraint firstItem="L39-Hx-cfK" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" id="WPm-do-Pfh"/>
                             <constraint firstItem="w09-uN-mY0" firstAttribute="leading" secondItem="yxj-0P-fWV" secondAttribute="leading" id="aMw-rg-Zfw"/>
                             <constraint firstItem="FOU-9P-kEw" firstAttribute="top" secondItem="Dky-Ut-ZNG" secondAttribute="bottom" id="bF6-ds-84H"/>
                             <constraint firstAttribute="centerY" secondItem="qOY-9H-iT7" secondAttribute="centerY" id="eTb-t1-ZRU"/>
@@ -137,8 +132,6 @@
                             <constraint firstItem="MLe-jo-SeL" firstAttribute="top" secondItem="qOY-9H-iT7" secondAttribute="bottom" constant="50" id="u9a-Wa-vEg"/>
                             <constraint firstItem="qOY-9H-iT7" firstAttribute="top" secondItem="EIK-Wq-UcI" secondAttribute="bottom" constant="50" id="uv8-QQ-o2X"/>
                             <constraint firstItem="MLe-jo-SeL" firstAttribute="top" secondItem="EIK-Wq-UcI" secondAttribute="bottom" constant="130" id="wh0-df-4pK"/>
-                            <constraint firstAttribute="trailing" secondItem="L39-Hx-cfK" secondAttribute="trailing" id="xgo-qN-uF7"/>
-                            <constraint firstItem="L39-Hx-cfK" firstAttribute="top" secondItem="yxj-0P-fWV" secondAttribute="top" id="ytQ-Kg-uex"/>
                             <constraint firstAttribute="width" secondItem="MLe-jo-SeL" secondAttribute="height" multiplier="15:1" id="z0U-n0-ahL"/>
                             <constraint firstItem="EIK-Wq-UcI" firstAttribute="top" secondItem="Xj6-eO-qtC" secondAttribute="bottom" constant="130" id="z8p-pw-66J"/>
                         </constraints>
@@ -159,7 +152,6 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="authLabel" destination="Yax-T3-xy3" id="ov8-sM-JVP"/>
-                        <outlet property="blurView" destination="L39-Hx-cfK" id="cD9-WV-eUr"/>
                         <outlet property="cityLabel" destination="ynq-nW-ejH" id="e9D-rg-KJR"/>
                         <outlet property="dateLabel" destination="RCz-vm-gOq" id="G9H-tJ-0Eo"/>
                         <outlet property="imageView" destination="Dky-Ut-ZNG" id="UDr-1j-4eh"/>
