@@ -29,17 +29,17 @@ class MemoryViewController: UIViewController {
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var tutoLabel: UILabel!
     @IBOutlet weak var logoImageView: UIImageView!
-    var fetchResult : PHFetchResult!
+    var results = [PHAsset]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // color
         colorArray = [UIColor.whiteColor(),UIColor.lightGrayColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.purpleColor(),UIColor.brownColor(),UIColor.magentaColor(),UIColor.yellowColor()]
-        self.pickColorRandomly()
+        pickColorRandomly()
         
-        // Fetch result
-        self.fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
+        // Result
+        fetchAssetsFromAllAlbums()
         
         // labels
         self.logoImageView.alpha = 0
@@ -88,18 +88,49 @@ class MemoryViewController: UIViewController {
         }
     }
 
-    
+    // Pick the photo randomlu in the asset
     func pickRandomPhoto(success: (UIImage?,NSDate?,CLLocation?) -> () = { image in }) {
         let imgManager = PHImageManager.defaultManager()
         let requestOptions = PHImageRequestOptions()
+        requestOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.HighQualityFormat
         requestOptions.synchronous = false
+        requestOptions.networkAccessAllowed = true
         
-        if self.fetchResult.count > 0 {
-            let r = Int(arc4random_uniform(UInt32(self.fetchResult.count)))
-            let asset : PHAsset = fetchResult.objectAtIndex(r) as! PHAsset
+        if self.results.count != 0 {
+            let r = Int(arc4random_uniform(UInt32(self.results.count)))
+            let asset : PHAsset = self.results[r] 
             imgManager.requestImageForAsset(asset, targetSize: self.view.frame.size, contentMode: PHImageContentMode.AspectFill, options: requestOptions, resultHandler: { (image, info) in
+                if image == nil {
+                    self.changeRandomPhoto()
+                } else {
                     success(image,asset.creationDate,asset.location)
+                }
+            })
+        } else {
+            fetchAssetsFromAllAlbums()
+        }
+    }
+    
+    // fetch assets from all photo albums
+    func fetchAssetsFromAllAlbums() -> () {
+        PHPhotoLibrary.requestAuthorization { (status) -> Void in
+            if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.Authorized
+            {
+                self.results.removeAll()
+                let userAlbumsOptions = PHFetchOptions()
+                userAlbumsOptions.predicate = NSPredicate(format:"estimatedAssetCount > 0")
+                let userAlbums = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album , subtype: PHAssetCollectionSubtype.Any, options: userAlbumsOptions)
+                userAlbums.enumerateObjectsUsingBlock({ (collection, idx, stop) -> Void in
+                    let onlyImagesOptions = PHFetchOptions()
+                    onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
+                    let result = PHAsset.fetchAssetsInAssetCollection(collection as! PHAssetCollection, options: onlyImagesOptions)
+                    result.enumerateObjectsUsingBlock({ (asset, idx, stop) -> Void in
+                        self.results.append(asset as! PHAsset)
+                    })
                 })
+            } else {
+                self.alertToEncouragePhotoLibraryAccessWhenApplicationStarts()
+            }
         }
     }
     
@@ -143,6 +174,8 @@ class MemoryViewController: UIViewController {
                 } else {
                     self.dateLabel.hidden = true
                 }
+            } else {
+                
             }
         })
     }
@@ -198,8 +231,7 @@ class MemoryViewController: UIViewController {
     }
     
     func pickColorRandomly() -> () {
-        let randomIndex = Int(arc4random()) % self.colorArray.count
-        self.currentColor = self.colorArray[randomIndex] as! UIColor
+        self.currentColor = UIColor.whiteColor()
         self.cityLabel.textColor = self.currentColor
         self.dateLabel.textColor = self.currentColor
         self.view.layer.borderColor = self.currentColor.CGColor
@@ -208,5 +240,25 @@ class MemoryViewController: UIViewController {
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         self.layer1.removeFromSuperlayer()
         self.layer2.removeFromSuperlayer()
+    }
+    
+    func alertToEncouragePhotoLibraryAccessWhenApplicationStarts()
+    {
+        //Photo Library not available - Alert
+        let cameraUnavailableAlertController = UIAlertController (title: "Photo Library Unavailable", message: "Please check to see if device settings doesn't allow photo library access", preferredStyle: .Alert)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .Destructive) { (_) -> Void in
+            let settingsUrl = NSURL(string:UIApplicationOpenSettingsURLString)
+            if let url = settingsUrl {
+                UIApplication.sharedApplication().openURL(url)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+        cameraUnavailableAlertController.addAction(settingsAction)
+        cameraUnavailableAlertController.addAction(cancelAction)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(cameraUnavailableAlertController , animated: true, completion: nil)
+        })
     }
 }
